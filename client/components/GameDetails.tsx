@@ -1,36 +1,38 @@
 import { useState, useEffect } from 'react'
-import { getGames } from '../apiClient/games'
-import { Result } from '../models/GamesModel'
-
+import { searchGames } from '../apiClient/games' // Adjust the import path as necessary
+import { Games } from '../models/UpdateGameModel'
 export default function ListGames() {
-  const [games, setGames] = useState<Result[] | null>(null)
-
-  async function fetchGames() {
-    try {
-      const gameData = await getGames()
-      setGames(gameData.results) // Assuming gameData is of type Games
-    } catch (error) {
-      console.log(error)
-      // Handle error or set default value for games in case of failure
-      setGames([])
-    }
-  }
+  const [games, setGames] = useState<Games[]>([])
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
-    fetchGames()
-  }, [])
+    if (searchQuery) {
+      searchGames(searchQuery)
+        .then((data) => setGames(data))
+        .catch((error) => console.error(error))
+    } else {
+      setGames([]) // Clear games if the search query is empty
+    }
+  }, [searchQuery])
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value)
+  }
 
   return (
     <>
       <h2>Games</h2>
-      <form>
-        
-      </form>
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={handleSearch}
+        placeholder="Search for a game"
+      />
       <ul>
-        {games !== null ? (
+        {games && games.length > 0 ? (
           games.map((game) => <li key={game.id}>{game.name}</li>)
         ) : (
-          <p>Loading or No Games Available</p>
+          <p>No matching games found</p>
         )}
       </ul>
     </>
