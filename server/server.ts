@@ -22,9 +22,9 @@ server.use(cors('*' as CorsOptions))
 // server.use('/api/v1/games', games)
 server.get('/api/v1/games', async (req, res) => {
   try {
-    const response = await request.get(
-      'https://api.rawg.io/api/games?key=e057c5112b9746c7b91a996ed2b3eee1'
-    )
+    const response = await request
+      .get('https://api.rawg.io/api/games?key=e057c5112b9746c7b91a996ed2b3eee1')
+      .query(`search mario`)
     console.log('this is the server', response.body)
     res.json(response.body) // Send the response back to the client
   } catch (error) {

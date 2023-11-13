@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getGames } from '../apiClient/games'
-import { Result } from '../models/GamesModel'
+import { Games, Result } from '../models/GamesModel'
 
 export default function ListGames() {
   const [games, setGames] = useState<Result[] | null>(null)
@@ -23,9 +23,7 @@ export default function ListGames() {
   return (
     <>
       <h2>Games</h2>
-      <form>
-        
-      </form>
+      <form></form>
       <ul>
         {games !== null ? (
           games.map((game) => <li key={game.id}>{game.name}</li>)
