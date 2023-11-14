@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { searchGames } from '../apiClient/games' // Adjust the import path as necessary
 import { Games } from '../models/UpdateGameModel'
+import { Link } from 'react-router-dom'
 export default function ListGames() {
   const [games, setGames] = useState<Games[]>([])
   const [searchQuery, setSearchQuery] = useState('')
@@ -11,7 +12,7 @@ export default function ListGames() {
         .then((data) => setGames(data))
         .catch((error) => console.error(error))
     } else {
-      setGames([]) // Clear games if the search query is empty
+      setGames([]) 
     }
   }, [searchQuery])
 
@@ -30,7 +31,11 @@ export default function ListGames() {
       />
       <ul>
         {games && games.length > 0 ? (
-          games.map((game) => <li key={game.id}>{game.name}</li>)
+          games.map((game) => (
+            <li key={game.id}>
+              <Link to={`/games/${game.name.toLowerCase()}`}>{game.name}</Link>
+            </li>
+          ))
         ) : (
           <p>No matching games found</p>
         )}
