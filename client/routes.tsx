@@ -2,11 +2,13 @@ import { Route, createRoutesFromElements } from 'react-router-dom'
 import Layout from './components/Layout'
 import HomePage from './components/HomePage'
 import FrogPage from './components/FrogPage'
-import GameDetails from './components/GameDetails'
+import GameDetails from './components/GameList'
+import TestComponent from './components/TestComponent'
 
 export default createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<GameDetails />} />
-    <Route path="/frogs/:name" element={<FrogPage />} />
+    <Route path="games/:name" element={<TestComponent />} />
+    {/* <Route path="/frogs/:name" element={<FrogPage />} /> */}
   </Route>
 )
