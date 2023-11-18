@@ -10,11 +10,17 @@ router.get('/', async (req, res) => {
   res.json(games)
 })
 
-//GET /api/v1/games/:name
-// router.get('/', async (req, res) => {
-//   const games = await request.get('/games/:name')
-//   console.log('hello')
-//   res.json(games)
-// })
+
+router.get('/games/search', async (req, res) => {
+  const games = await request.get('/search')
+  console.log('This is logged from the routes', games)
+  res.json(games)
+})
+
+router.get('/games/:name', async (req, res) => {
+  const games = await request.get('/:name')
+  console.log('This is logged from the routes', games)
+  res.json(games)
+})
 
 export default router

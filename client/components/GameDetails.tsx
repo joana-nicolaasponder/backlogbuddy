@@ -1,36 +1,47 @@
-import { useState, useEffect } from 'react'
-import { getGames } from '../apiClient/games'
-import { Games, Result } from '../models/GamesModel'
+import { useParams } from 'react-router-dom'
 
-export default function ListGames() {
-  const [games, setGames] = useState<Result[] | null>(null)
+import { viewGame } from '../apiClient/games'
+import { useQuery } from '@tanstack/react-query'
 
-  async function fetchGames() {
-    try {
-      const gameData = await getGames()
-      setGames(gameData.results) // Assuming gameData is of type Games
-    } catch (error) {
-      console.log(error)
-      // Handle error or set default value for games in case of failure
-      setGames([])
-    }
+export default function GameDetails() {
+  const { name } = useParams()
+
+  const {
+    data: game,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['game', name],
+    queryFn: () => viewGame(name as string),
+  })
+  if (error) {
+    return <p>There was an error trying to get the game details</p>
+  }
+  if (!game || isLoading) {
+    return <p>LOADING...</p>
   }
 
-  useEffect(() => {
-    fetchGames()
-  }, [])
+  console.log('Game details:', game)
 
   return (
     <>
-      <h2>Games</h2>
-      <form></form>
-      <ul>
-        {games !== null ? (
-          games.map((game) => <li key={game.id}>{game.name}</li>)
-        ) : (
-          <p>Loading or No Games Available</p>
-        )}
-      </ul>
+      <div>
+        <div className="container">
+          {game.map((g) => (
+            <>
+              <h1>{g.name}</h1>
+              <img
+                className="cover-image"
+                src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${g.cover.image_id}.jpg`}
+                alt={`${g.name} cover`}
+              />
+              <p className="game-summary" key={g.id}>
+                {g.summary}
+              </p>
+            </>
+          ))}
+        </div>
+      </div>
     </>
   )
 }

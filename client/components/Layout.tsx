@@ -9,7 +9,8 @@ export default function Layout() {
       <main>
         <Outlet />
       </main>
-      <footer>Copyright &copy; 2038</footer>
+
+      <footer>Copyright &copy; wonderponder</footer>
     </>
   )
 }
