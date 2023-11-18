@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { searchGames } from '../apiClient/games' // Adjust the import path as necessary
-import { Games } from '../models/UpdateGameModel'
+import { Games } from '../models/GameModel'
 import { Link } from 'react-router-dom'
 export default function ListGames() {
   const [games, setGames] = useState<Games[]>([])
@@ -12,7 +12,7 @@ export default function ListGames() {
         .then((data) => setGames(data))
         .catch((error) => console.error(error))
     } else {
-      setGames([]) 
+      setGames([])
     }
   }, [searchQuery])
 

@@ -10,11 +10,6 @@ router.get('/', async (req, res) => {
   res.json(games)
 })
 
-//GET /api/v1/games/:name
-// router.get('/', async (req, res) => {
-//   const games = await request.get('/games/:name')
-//   console.log('hello')
-//   res.json(games)
-// })
+
 
 export default router
