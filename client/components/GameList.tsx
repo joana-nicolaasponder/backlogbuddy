@@ -22,7 +22,7 @@ export default function ListGames() {
 
   return (
     <>
-      <h2>Games</h2>
+      <h2>🎮 Find a game 🎮</h2>
       <input
         type="text"
         value={searchQuery}

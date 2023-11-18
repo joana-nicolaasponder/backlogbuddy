@@ -1,6 +1,6 @@
 import request from 'superagent'
 
-import { Games } from '../models/GameModel'
+import { Games, Game } from '../models/GameModel'
 
 export async function searchGames(searchQuery: string): Promise<Games[]> {
   try {
@@ -15,7 +15,7 @@ export async function searchGames(searchQuery: string): Promise<Games[]> {
   }
 }
 
-export async function viewGame(name: string): Promise<Games[]> {
+export async function viewGame(name: string): Promise<Game[]> {
   console.log('chosen game from apiclient:', name)
   const formattedName = name
     .replace(/[^\w\s]/g, '')

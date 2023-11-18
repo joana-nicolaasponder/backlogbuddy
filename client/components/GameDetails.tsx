@@ -24,11 +24,24 @@ export default function GameDetails() {
   console.log('Game details:', game)
 
   return (
-    <div>
-      <h1>{name}</h1>
-      {game.map((g) => (
-        <p key={g.id}>{g.summary}</p>
-      ))}
-    </div>
+    <>
+      <div>
+        <div className="container">
+          {game.map((g) => (
+            <>
+              <h1>{g.name}</h1>
+              <img
+                className="cover-image"
+                src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${g.cover.image_id}.jpg`}
+                alt={`${g.name} cover`}
+              />
+              <p className="game-summary" key={g.id}>
+                {g.summary}
+              </p>
+            </>
+          ))}
+        </div>
+      </div>
+    </>
   )
 }
