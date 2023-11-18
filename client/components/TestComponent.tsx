@@ -1,10 +1,16 @@
 import { useParams } from 'react-router-dom'
 // import { Games } from '../models/UpdateGameModel'
-import { viewGame } from '../apiClient/games'
+import {
+  getGameDetails,
+  getGameDetailsByName,
+  viewGame,
+  viewGameById,
+} from '../apiClient/games'
 import { useQuery } from '@tanstack/react-query'
 
 export default function GameDetails() {
   const { name } = useParams()
+  // const { id } = useParams()
 
   const {
     data: game,
@@ -21,11 +27,13 @@ export default function GameDetails() {
     return <p>LOADING...</p>
   }
 
+  console.log('Game details:', game)
+
   return (
     <div>
       <h1>{name}</h1>
       {game.map((g) => (
-        <p key={name}>{g.summary}</p>
+        <p key={g.id}>{g.summary}</p>
       ))}
     </div>
   )
