@@ -41,12 +41,39 @@ export interface Games {
   coverUrl?: string
 }
 
+// export interface Game {
+//   id: number
+//   cover: {
+//     id: number
+//     image_id: string
+//   }
+//   name: string
+//   summary: string
+//   genre: {
+//     name: string
+//   }
+// }
+
 export interface Game {
-  id: number
-  cover: {
-    id: number
-    image_id: string
-  }
-  name: string
-  summary: string
+  id:            number;
+  cover:         Cover;
+  genres:        Genre[];
+  name:          string;
+  release_dates: ReleaseDate[];
+  summary:       string;
+}
+
+export interface Cover {
+  id:       number;
+  image_id: string;
+}
+
+export interface Genre {
+  id:   number;
+  name: string;
+}
+
+export interface ReleaseDate {
+  id:   number;
+  human: string;
 }

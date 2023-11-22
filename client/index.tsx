@@ -18,6 +18,8 @@ const colors = {
     500: '#f2e9e4',
   },
 }
+
+
 const theme = extendTheme({ colors })
 const router = createBrowserRouter(routes)
 
