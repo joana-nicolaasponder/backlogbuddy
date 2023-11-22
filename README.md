@@ -1,30 +1,27 @@
-# Boilerplate: React with Express and Vite
+# backlog-buddy
 
-This is a starter project that uses Vite to bundle a React app and Express to serve it in production. Express is used in development to serve an API server.
+Hello, welcome to my personal project. This is something I'm building as I learn, so be patient :) This idea is close to my heart because I purchase way too many video games and never actually play or finish them. It's awful. I have a very long long list of games in my  backlog. And I thought, it would be cool if I could get a game recommended to me that I already own, in order to scratch the itch that I might be feeling. Ideally, this will help me save money in the long run, and help me play the games in the backlog. 
 
-Vite React App: [http://localhost:5173](http://localhost:5173)
-Express API Server: [http://localhost:3000](http://localhost:3000)
+## Core Functionality and Goals of the Backlog Buddy App
 
-Requests to `http://localhost:5173/api` are proxied to `http://localhost:3000/api`.
+The Backlog Buddy app aims to provide users with a comprehensive solution for managing their video game backlog. Its core functionality includes:
 
-## Setup
+- Game Backlog Management: Users can add and categorize video games they own but have not yet played or completed, creating a personalized backlog.
 
-### Installation
+- Game Recommendation: The app offers game recommendations based on user-defined criteria such as genre, mood, or gameplay preferences. This helps users discover which game in their backlog matches their current gaming desires.
 
-To use, consider these steps:
+- Game Information Retrieval: Users can access detailed information about each game in their backlog, including title, genre, release date, and platform.
 
-- Fork this repo
-- Rename your repo according to the app you're building
+- User Authentication (Optional): Optionally, the app can support user registration and authentication to enable personalized backlog management.
 
-```sh
-git clone https://github.com/[your-account]/[your-app].git
-cd [your-app] && npm i
-```
+## The primary goals of the Backlog Buddy app are to:
 
-To start the development server with a watcher that rebuilds your code, run `npm run dev`.
+- Help users keep track of their unplayed games, reducing the chance of forgetting about titles in their collection.
 
-Additional components should be placed in `client/components`.
+- Assist users in finding the perfect game from their backlog to match their current gaming preferences, reducing the temptation to purchase new games unnecessarily.
 
----
+- Provide a user-friendly and visually appealing interface for easy interaction.
 
-[Provide feedback on this repo](https://docs.google.com/forms/d/e/1FAIpQLSfw4FGdWkLwMLlUaNQ8FtP2CTJdGDUv6Xoxrh19zIrJSkvT4Q/viewform?usp=pp_url&entry.1958421517=boilerplate-react-api)
+- Optionally, enhance the user experience through authentication, enabling features like personalized recommendations.
+
+## By achieving these goals, the Backlog Buddy app aims to streamline the gaming experience for users, optimizing their enjoyment of their existing game library and encouraging thoughtful game selection.

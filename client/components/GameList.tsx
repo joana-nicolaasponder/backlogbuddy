@@ -2,6 +2,23 @@ import { useState, useEffect } from 'react'
 import { searchGames } from '../apiClient/games' // Adjust the import path as necessary
 import { Games } from '../models/GameModel'
 import { Link } from 'react-router-dom'
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Heading,
+  Center,
+  Input,
+  Spacer,
+} from '@chakra-ui/react'
+import {
+  List,
+  ListItem,
+  ListIcon,
+  OrderedList,
+  UnorderedList,
+} from '@chakra-ui/react'
 export default function ListGames() {
   const [games, setGames] = useState<Games[]>([])
   const [searchQuery, setSearchQuery] = useState('')
@@ -22,24 +39,30 @@ export default function ListGames() {
 
   return (
     <>
-      <h2>🎮 Find a game 🎮</h2>
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={handleSearch}
-        placeholder="Search for a game"
-      />
-      <ul>
+      <Heading as="h2" size="lg" marginBottom="4">
+        🎮 Find a game 🎮
+      </Heading>
+      <FormControl marginBottom="6">
+        <FormLabel>Search games</FormLabel>
+        <Input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearch}
+          placeholder="Search for a game"
+        />
+      </FormControl>
+
+      <UnorderedList spacing="2">
         {games && games.length > 0 ? (
           games.map((game) => (
-            <li key={game.id}>
+            <ListItem key={game.id}>
               <Link to={`/games/${game.name.toLowerCase()}`}>{game.name}</Link>
-            </li>
+            </ListItem>
           ))
         ) : (
           <p>No matching games found</p>
         )}
-      </ul>
+      </UnorderedList>
     </>
   )
 }
