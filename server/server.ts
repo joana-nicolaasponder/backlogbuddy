@@ -49,7 +49,7 @@ server.post('/api/v1/games/:name', async (req, res) => {
       .post(`https://api.igdb.com/v4/games/`)
       .query({
         search: `${name}`,
-        fields: `name, summary, cover.image_id, genres.name, release_dates.human`,
+        fields: `name, summary, cover.image_id, genres.name, release_dates.human, platforms.name, first_release_date, storyline, platforms.name, involved_companies.company.name, screenshots.image_id`,
       })
       .set('Authorization', `Bearer ${process.env.GAME_API_TOKEN}`)
       .set('Client-ID', `${process.env.GAME_API_KEY}`)
