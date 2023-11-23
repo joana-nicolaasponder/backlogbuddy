@@ -19,7 +19,12 @@ import {
   OrderedList,
   UnorderedList,
 } from '@chakra-ui/react'
-export default function ListGames() {
+
+
+
+
+
+export default function GameList() {
   const [games, setGames] = useState<Games[]>([])
   const [searchQuery, setSearchQuery] = useState('')
 

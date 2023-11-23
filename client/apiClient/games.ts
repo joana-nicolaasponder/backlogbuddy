@@ -24,6 +24,6 @@ export async function viewGame(name: string): Promise<Game[]> {
   // console.log('this is the formatted name:', formattedName)
   // console.log('this is the URL call:', `api/v1/games/${formattedName}`)
   const response = await request.post(`/api/v1/games/${formattedName}`)
-  // console.log('this is from the api client:', response)
+  console.log('this is from the api client:', response.body)
   return response.body
 }
