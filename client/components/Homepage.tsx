@@ -1,14 +1,38 @@
+import {
+  Button,
+  Center,
+  Container,
+  Heading,
+  Spacer,
+  Text,
+} from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
+
 export default function Homepage() {
-  function handleClick(event: MouseEvent<HTMLButtonElement, MouseEvent>): void {
-    throw new Error('Function not implemented.')
-  }
+  function handleClick(
+    event: MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void {}
 
   return (
     <>
-      <h1>Hello Joana!</h1>
-      <h2>What would you like to do?</h2>
-      <button onClick={handleClick}>Add a game</button>
-      <button>Buy a game</button>
+      <Container>
+        <Center>
+          <Heading as="h1" size="4xl">
+            Hello Joana!
+          </Heading>
+        </Center>
+        <Center>
+          <Text fontSize="3xl" marginBottom="20px" marginTop="20px">
+            What would you like to do?
+          </Text>
+        </Center>
+        <Center>
+          <Link to="/games/search">
+            <Button marginRight="20px">Add a game</Button>
+          </Link>
+          {/* <Button>Buy a game</Button> */}
+        </Center>
+      </Container>
     </>
   )
 }
