@@ -19,10 +19,7 @@ import {
   OrderedList,
   UnorderedList,
 } from '@chakra-ui/react'
-
-
-
-
+import Homepage from './Homepage'
 
 export default function GameList() {
   const [games, setGames] = useState<Games[]>([])
@@ -57,7 +54,7 @@ export default function GameList() {
         />
       </FormControl>
 
-      <UnorderedList spacing="2">
+      <UnorderedList spacing="2" marginBottom={10}>
         {games && games.length > 0 ? (
           games.map((game) => (
             <ListItem key={game.id}>
@@ -68,6 +65,7 @@ export default function GameList() {
           <p>No matching games found</p>
         )}
       </UnorderedList>
+      <Link to="/">Back</Link>
     </>
   )
 }

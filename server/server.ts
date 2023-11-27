@@ -11,14 +11,18 @@ const server = express()
 server.use(express.json())
 server.use(cors('*' as CorsOptions))
 
-// server.post('/api/v1/search', async (req, res) => {
+//SEARCH
 const debouncedSearch = debounce(async (searchQuery, res) => {
   try {
     // const searchQuery = req.query.name
     const response = await request
       .post('https://api.igdb.com/v4/games')
 
-      .query({ search: `${searchQuery}`, fields: 'name, summary', limit: 250 })
+      .query({
+        search: `${searchQuery}`,
+        fields: 'name, id',
+        limit: 250,
+      })
 
       .set('Authorization', `Bearer ${process.env.GAME_API_TOKEN}`)
       .set('Client-ID', `${process.env.GAME_API_KEY}`)
@@ -30,7 +34,7 @@ const debouncedSearch = debounce(async (searchQuery, res) => {
     console.error(error)
     res.status(500).send('Error fetching games')
   }
-}, 150)
+}, 30)
 
 server.post('/api/v1/search', (req, res) => {
   const searchQuery = req.query.name

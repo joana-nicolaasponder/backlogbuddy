@@ -1,18 +1,7 @@
-import {
-  Button,
-  Center,
-  Container,
-  Heading,
-  Spacer,
-  Text,
-} from '@chakra-ui/react'
+import { Button, Center, Container, Heading, Text } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 export default function Homepage() {
-  function handleClick(
-    event: MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void {}
-
   return (
     <>
       <Container>

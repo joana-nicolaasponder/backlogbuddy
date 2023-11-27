@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom'
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import {
   Button,
@@ -12,9 +13,12 @@ import {
 } from '@chakra-ui/react'
 import { viewGame } from '../apiClient/games'
 
+import AddGame from './AddGame'
+
 export default function GameDetails() {
   const { name } = useParams()
 
+  const [addToBackLogClicked, setAddToBackLogClicked] = useState(false)
   const {
     data: game,
     isLoading,
@@ -131,9 +135,17 @@ export default function GameDetails() {
             </Text>
 
             <Center>
-              <Button marginTop="40px" marginBottom="40px">
-                Add to Backlog
-              </Button>
+              {addToBackLogClicked ? (
+                <AddGame gameName={gameName} platforms={platforms} />
+              ) : (
+                <Button
+                  onClick={() => setAddToBackLogClicked(true)}
+                  marginTop="40px"
+                  marginBottom="40px"
+                >
+                  Add to Backlog
+                </Button>
+              )}
             </Center>
             <Heading as="h3" size="lg" textColor="brand.600">
               Publishers:{' '}
