@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { searchGames } from '../apiClient/games' // Adjust the import path as necessary
+import { searchGames } from '../apiClient/games'
 import { Games } from '../models/GameModel'
 import { Link } from 'react-router-dom'
 import {
@@ -38,6 +38,8 @@ export default function GameList() {
   const handleSearch = (event) => {
     setSearchQuery(event.target.value)
   }
+
+  
 
   return (
     <>

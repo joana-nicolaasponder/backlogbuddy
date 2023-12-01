@@ -48,8 +48,8 @@ export default function GameDetails() {
     screenshots,
   } = game[0]
 
-  console.log(genres)
-  console.log(involved_companies)
+  // console.log(genres)
+  // console.log(involved_companies)
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp * 1000) // Convert to milliseconds
