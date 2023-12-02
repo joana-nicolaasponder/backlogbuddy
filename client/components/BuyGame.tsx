@@ -1,12 +1,9 @@
 import {
-  Button,
   FormControl,
   FormLabel,
   Heading,
   Input,
   ListItem,
-  Select,
-  Text,
   UnorderedList,
 } from '@chakra-ui/react'
 

@@ -2,24 +2,8 @@ import { useState, useEffect } from 'react'
 import { searchGames } from '../apiClient/games'
 import { Games } from '../models/GameModel'
 import { Link } from 'react-router-dom'
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Heading,
-  Center,
-  Input,
-  Spacer,
-} from '@chakra-ui/react'
-import {
-  List,
-  ListItem,
-  ListIcon,
-  OrderedList,
-  UnorderedList,
-} from '@chakra-ui/react'
-import Homepage from './Homepage'
+import { FormControl, FormLabel, Heading, Input } from '@chakra-ui/react'
+import { ListItem, UnorderedList } from '@chakra-ui/react'
 
 export default function GameList() {
   const [games, setGames] = useState<Games[]>([])
@@ -38,8 +22,6 @@ export default function GameList() {
   const handleSearch = (event) => {
     setSearchQuery(event.target.value)
   }
-
-  
 
   return (
     <>

@@ -1,6 +1,6 @@
 import request from 'superagent'
 
-import { Games, Game, Genre } from '../models/GameModel'
+import { Games, Game } from '../models/GameModel'
 
 export async function searchGames(searchQuery: string): Promise<Games[]> {
   try {
