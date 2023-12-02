@@ -5,11 +5,14 @@ import GameList from './components/GameList'
 import BuyGame from './components/BuyGame'
 import HomePage from './components/Homepage'
 
+import NewGame from './components/NewGame'
+
 export default createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<HomePage />} />
     <Route path="games/search" element={<GameList />} />
     <Route path="games/buy" element={<BuyGame />} />
     <Route path="games/:name" element={<GameDetails />} />
+    <Route path="games/buy/:name" element={<NewGame />} />
   </Route>
 )

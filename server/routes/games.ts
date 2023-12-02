@@ -25,4 +25,9 @@ router.get('/games/buy', async (req, res) => {
   res.json(games)
 })
 
+router.get('/games/buy/:name', async (req, res) => {
+  const games = await request.get('/games/buy/:name')
+  res.json(games)
+})
+
 export default router

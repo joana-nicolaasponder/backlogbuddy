@@ -1,10 +1,16 @@
 import {
+  Button,
   FormControl,
   FormLabel,
   Heading,
   Input,
+  ListItem,
   Select,
+  Text,
+  UnorderedList,
 } from '@chakra-ui/react'
+
+import { Link } from 'react-router-dom'
 
 import { Game, Games } from '../models/GameModel'
 import { useEffect, useState } from 'react'
@@ -13,7 +19,8 @@ import { searchGames } from '../apiClient/games'
 export default function BuyGame() {
   const [searchQuery, setSearchQuery] = useState('')
   const [games, setGames] = useState<Games[]>([])
-  const [selectedGame, setSelectedGame] = useState<Game[]>([])
+  const [selectedGame, setSelectedGame] = useState<Game | null>(null)
+  const [selectedGameName, setSelectedGameName] = useState<string | null>(null)
 
   useEffect(() => {
     if (searchQuery) {
@@ -30,9 +37,12 @@ export default function BuyGame() {
     setSelectedGame(null)
   }
 
-  const handleSelectGame = (selectedGame) => {
+  const handleSelectGame = (selectedGame: Game) => {
     setSelectedGame(selectedGame)
+    setSelectedGameName(selectedGame.name)
   }
+
+  console.log('check', selectedGameName)
 
   return (
     <>
@@ -50,17 +60,20 @@ export default function BuyGame() {
         />
       </FormControl>
 
-      <Select placeholder="Your choice" marginBottom={2}>
+      <UnorderedList spacing="2" marginBottom={10}>
         {games && games.length > 0 ? (
           games.map((game) => (
-            <option key={game.id} onClick={() => handleSelectGame(game)}>
-              {game.name}
-            </option>
+            <ListItem key={game.id}>
+              <Link to={`/games/buy/${game.name.toLowerCase()}`}>
+                {game.name}
+              </Link>
+            </ListItem>
           ))
         ) : (
           <p>No matching games found</p>
         )}
-      </Select>
+      </UnorderedList>
+      <Link to="/">Back</Link>
     </>
   )
 }
