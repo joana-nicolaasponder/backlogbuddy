@@ -27,3 +27,16 @@ export async function viewGame(name: string): Promise<Game[]> {
   console.log('this is from the api client:', response.body)
   return response.body
 }
+
+// export async function buyGame(name: string): Promise<Game[]> {
+//   console.log('chosen game from apiclient:', name)
+//   const formattedName = name
+//     .replace(/[^\w\s]/g, '')
+//     // .replace(/\s+/g, '-') <--- had to remove this! coral%20island coral-island
+//     .toLowerCase()
+//   // console.log('this is the formatted name:', formattedName)
+//   // console.log('this is the URL call:', `api/v1/games/${formattedName}`)
+//   const response = await request.post(`/api/v1/games/buy/${formattedName}`)
+//   console.log('this is from the api client:', response.body)
+//   return response.body
+// }

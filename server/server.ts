@@ -74,4 +74,27 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
+//GENRE
+server.post('/api/v1/games/buy', async (req, res) => {
+  try {
+    // const name = req.params.name
+    // console.log('FROM SERVER', req)
+    // console.log('this is from server', name)
+    const response = await request
+      .post(`https://api.igdb.com/v4/genres/`)
+      .query({
+        // search: `${name}`,
+        fields: `name, id`,
+      })
+      .set('Authorization', `Bearer ${process.env.GAME_API_TOKEN}`)
+      .set('Client-ID', `${process.env.GAME_API_KEY}`)
+    console.log('Response from genre server:', response)
+
+    res.json(response.body)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Error fetching game details')
+  }
+})
+
 export default server

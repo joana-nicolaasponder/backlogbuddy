@@ -21,6 +21,14 @@ export default function Homepage() {
           </Link>
           {/* <Button>Buy a game</Button> */}
         </Center>
+        <Center>
+          <Link to="/games/buy">
+            <Button marginRight="20px" marginTop="20px">
+              Oh no, I want to buy a game
+            </Button>
+          </Link>
+          {/* <Button>Buy a game</Button> */}
+        </Center>
       </Container>
     </>
   )
