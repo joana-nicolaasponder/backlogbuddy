@@ -1,4 +1,12 @@
-import { Heading, Text, Select, FormControl, FormLabel } from '@chakra-ui/react'
+import {
+  Heading,
+  Text,
+  Select,
+  FormControl,
+  FormLabel,
+  Button,
+  Center,
+} from '@chakra-ui/react'
 
 import { viewGame } from '../apiClient/games'
 import { useParams } from 'react-router-dom'
@@ -68,7 +76,12 @@ export default function NewGame() {
           <option>Sad</option>
           <option>Bored</option>
           <option>Cozy</option>
+          <option>Hype</option>
+          <option>Annoyed</option>
         </Select>
+        <Center marginTop="50px">
+          <Button>BOUGHT IT 😅</Button>
+        </Center>
       </FormControl>
     </>
   )

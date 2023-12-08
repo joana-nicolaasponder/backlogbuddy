@@ -48,7 +48,7 @@ export default function BuyGame() {
       </Heading>
 
       <FormControl marginBottom="6">
-        <FormLabel>Search games</FormLabel>
+        <FormLabel></FormLabel>
         <Input
           type="text"
           value={searchQuery}
