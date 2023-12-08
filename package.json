@@ -38,6 +38,7 @@
     "express": "^4.17.2",
     "framer-motion": "^10.16.5",
     "lodash": "^4.17.21"
+    
   },
   "devDependencies": {
     "@devacademy/eslint-config": "^1.9.1",
