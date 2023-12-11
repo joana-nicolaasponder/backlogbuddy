@@ -12,7 +12,7 @@ The Backlog Buddy app aims to provide users with a comprehensive solution for ma
 
 - Game Information Retrieval: Users can access detailed information about each game in their backlog, including title, genre, release date, and platform.
 
-- User Authentication (Optional): Optionally, the app can support user registration and authentication to enable personalized backlog management.
+- User Authentication: Optionally, the app can support user registration and authentication to enable personalized backlog management.
 
 ## The primary goals of the Backlog Buddy app are to:
 
