@@ -5,11 +5,13 @@ import cors, { CorsOptions } from 'cors'
 import debounce from 'lodash/debounce'
 
 import 'dotenv/config'
+import routes from '../server/routes/routes.ts'
 
 const server = express()
 
 server.use(express.json())
 server.use(cors('*' as CorsOptions))
+server.use('/api/v1/routes', routes)
 
 //SEARCH
 const debouncedSearch = debounce(async (searchQuery, res) => {

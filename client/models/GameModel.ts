@@ -41,8 +41,6 @@ export interface Games {
   coverUrl?: string
 }
 
-
-
 export interface Game {
   id: number
   cover: Cover
@@ -95,4 +93,16 @@ export interface Website {
   id: number
   category: number
   url: string
+}
+
+export interface BacklogGames {
+  id: number
+  game_title: string
+  genre: string
+  platform: string
+  publisher: string
+  mood: string
+  status: string
+  rating: string
+  image: string
 }

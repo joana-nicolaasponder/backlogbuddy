@@ -1,6 +1,6 @@
 import request from 'superagent'
 
-import { Games, Game } from '../models/GameModel'
+import { Games, Game, BacklogGames } from '../models/GameModel'
 
 export async function searchGames(searchQuery: string): Promise<Games[]> {
   try {
@@ -40,3 +40,9 @@ export async function viewGame(name: string): Promise<Game[]> {
 //   console.log('this is from the api client:', response.body)
 //   return response.body
 // }
+
+export async function getBacklogGames(): Promise<BacklogGames[]> {
+  const data = await request.get('/api/v1/routes/backlog')
+  console.log('API', data.body)
+  return data.body
+}
