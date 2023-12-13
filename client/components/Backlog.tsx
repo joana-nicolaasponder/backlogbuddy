@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { getBacklogGames } from '../apiClient/games'
-import { List, ListItem, Text, UnorderedList, Image } from '@chakra-ui/react'
+import { ListItem, Text, UnorderedList, Image } from '@chakra-ui/react'
 
 export default function Backlog() {
   const {

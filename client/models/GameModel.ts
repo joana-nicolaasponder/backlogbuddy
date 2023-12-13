@@ -106,3 +106,9 @@ export interface BacklogGames {
   rating: string
   image: string
 }
+
+export interface GameData {
+  game_title: string
+  genre?: string
+  mood?: string
+}

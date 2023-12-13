@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 
 import { viewGame } from '../apiClient/games'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 
 export default function NewGame() {
@@ -80,7 +80,9 @@ export default function NewGame() {
           <option>Annoyed</option>
         </Select>
         <Center marginTop="50px">
-          <Button>BOUGHT IT 😅</Button>
+          <Link to={`/games/recommended`}>
+            <Button>THIS ONE... 😅</Button>
+          </Link>
         </Center>
       </FormControl>
     </>

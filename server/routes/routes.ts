@@ -1,5 +1,5 @@
 import express from 'express'
-import { getBacklogGames } from '../db/functions/functions'
+import { addGame, getBacklogGames } from '../db/functions/functions'
 
 const router = express.Router()
 
@@ -13,4 +13,9 @@ router.get('/backlog', async (req, res) => {
   }
 })
 
+router.post('/backlog', async (req, res) => {
+  const data = req.body
+  const games = await addGame(data)
+  res.status(200).json(games)
+})
 export default router
