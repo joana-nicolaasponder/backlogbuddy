@@ -8,7 +8,7 @@ import {
   Center,
 } from '@chakra-ui/react'
 
-import { viewGame } from '../apiClient/games'
+import { buyGame } from '../apiClient/games'
 import { Link, useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 
@@ -21,7 +21,7 @@ export default function NewGame() {
     error,
   } = useQuery({
     queryKey: ['game', name],
-    queryFn: () => viewGame(name as string),
+    queryFn: () => buyGame(name as string),
   })
 
   if (error) {
