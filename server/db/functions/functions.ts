@@ -1,10 +1,4 @@
-import {
-  BacklogGame,
-  BacklogGames,
-  Game,
-  GameData,
-  Games,
-} from '../../../client/models/GameModel.ts'
+import { BacklogGames, GameData } from '../../../client/models/GameModel.ts'
 import connection from '../connection.ts'
 
 export async function getBacklogGames(): Promise<BacklogGames[]> {

@@ -16,7 +16,6 @@ server.use('/api/v1/routes', routes)
 //SEARCH
 const debouncedSearch = debounce(async (searchQuery, res) => {
   try {
-    // const searchQuery = req.query.name
     const response = await request
       .post('https://api.igdb.com/v4/games')
 
@@ -44,13 +43,11 @@ server.post('/api/v1/search', (req, res) => {
   debouncedSearch(searchQuery, res)
 })
 
-// this one works!!
 // SINGLE GAME DETAILS
 server.post('/api/v1/games/:name', async (req, res) => {
   try {
     const name = req.params.name
-    // console.log('FROM SERVER', req)
-    // console.log('this is from server', name)
+
     const response = await request
       .post(`https://api.igdb.com/v4/games/`)
       .query({
@@ -59,7 +56,6 @@ server.post('/api/v1/games/:name', async (req, res) => {
       })
       .set('Authorization', `Bearer ${process.env.GAME_API_TOKEN}`)
       .set('Client-ID', `${process.env.GAME_API_KEY}`)
-    // console.log('Response from name server:', response.body)
 
     res.json(response.body)
   } catch (error) {
@@ -68,11 +64,11 @@ server.post('/api/v1/games/:name', async (req, res) => {
   }
 })
 
+// BUY PAGE
 server.post('/api/v1/games/buy/:name', async (req, res) => {
   try {
     const name = req.params.name
-    // console.log('FROM SERVER', req)
-    // console.log('this is from server', name)
+
     const response = await request
       .post(`https://api.igdb.com/v4/games/`)
       .query({
@@ -81,7 +77,6 @@ server.post('/api/v1/games/buy/:name', async (req, res) => {
       })
       .set('Authorization', `Bearer ${process.env.GAME_API_TOKEN}`)
       .set('Client-ID', `${process.env.GAME_API_KEY}`)
-    // console.log('Response from name server:', response.body)
 
     res.json(response.body)
   } catch (error) {
@@ -89,6 +84,9 @@ server.post('/api/v1/games/buy/:name', async (req, res) => {
     res.status(500).send('Error fetching game details')
   }
 })
+
+
+
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))
@@ -97,28 +95,5 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(Path.resolve('./dist/index.html'))
   })
 }
-
-//GENRE
-server.post('/api/v1/games/buy', async (req, res) => {
-  try {
-    // const name = req.params.name
-    // console.log('FROM SERVER', req)
-    // console.log('this is from server', name)
-    const response = await request
-      .post(`https://api.igdb.com/v4/genres/`)
-      .query({
-        // search: `${name}`,
-        fields: `name, id`,
-      })
-      .set('Authorization', `Bearer ${process.env.GAME_API_TOKEN}`)
-      .set('Client-ID', `${process.env.GAME_API_KEY}`)
-    console.log('Response from genre server:', response)
-
-    res.json(response.body)
-  } catch (error) {
-    console.error(error)
-    res.status(500).send('Error fetching game details')
-  }
-})
 
 export default server
