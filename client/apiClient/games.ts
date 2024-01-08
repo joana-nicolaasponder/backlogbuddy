@@ -28,11 +28,25 @@ export async function viewGame(name: string): Promise<Game[]> {
   return response.body
 }
 
+export async function addGame(name: string): Promise<Game[]> {
+  console.log('ADDING:', name)
+  const formattedName = name.replace(/[^\w\s]/g, '').toLowerCase()
+
+  const response = await request.post(`/api/v1/games/${formattedName}/add`)
+  console.log(response)
+  return response.body
+}
+
+export async function addBacklogGame(game: GameData) {
+  console.log('ADD TO BACKLOG:', game)
+  const response = await request.post('/api/v1/routes/backlog').send(game)
+  console.log(response)
+  return response.body
+}
+
 export async function buyGame(name: string): Promise<Game[]> {
   console.log('chosen game to buy from apiclient:', name)
-  const formattedName = name
-    .replace(/[^\w\s]/g, '')
-    .toLowerCase()
+  const formattedName = name.replace(/[^\w\s]/g, '').toLowerCase()
   const response = await request.post(`/api/v1/games/buy/${formattedName}`)
   console.log('this is from the api client:', response.body)
   return response.body
@@ -43,9 +57,3 @@ export async function getBacklogGames(): Promise<BacklogGames[]> {
   console.log('API', data.body)
   return data.body
 }
-
-// export async function addGame(game: GameData) {
-//   const data = await request.post('/api/v1/routes/backlog')
-//   console.log('API POST', data.body)
-//   return data.body
-// }

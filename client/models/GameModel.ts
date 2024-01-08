@@ -111,4 +111,5 @@ export interface GameData {
   game_title: string
   genre?: string
   mood?: string
+  platform?: string
 }

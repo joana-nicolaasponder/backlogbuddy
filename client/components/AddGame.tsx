@@ -1,12 +1,46 @@
 import { Button, FormControl, FormLabel, Select, Text } from '@chakra-ui/react'
 
 import { useState } from 'react'
+import { addGame, addBacklogGame } from '../apiClient/games'
+import { useParams } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 
-export default function AddGame({ gameName, platforms }) {
+export default function AddGame() {
   const [selectedPlatform, setSelectedPlatform] = useState('')
 
-  const handleSubmit = () => {
-    //add game to database
+  const { name } = useParams()
+
+  const {
+    data: game,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['game', name],
+    queryFn: () => addGame(name as string),
+  })
+
+  if (error) {
+    return <p>There was an error</p>
+  }
+
+  if (!game || isLoading) {
+    return <p>Loading...</p>
+  }
+
+  const {
+    name: gameName,
+
+    platforms,
+  } = game[0]
+
+  const handleSubmit = async (e) => {
+    console.log('CLicked')
+    e.preventDefault()
+    const response = await addBacklogGame({
+      game_title: gameName,
+      platform: selectedPlatform,
+    })
+    console.log('Game added', response)
   }
 
   return (
@@ -36,13 +70,17 @@ export default function AddGame({ gameName, platforms }) {
             </option>
           ))}
         </Select>
-        <FormLabel color="brand.700">Why did you buy it?</FormLabel>
-        <Select placeholder="Select mood/reason">
+        {/* <FormLabel color="brand.700">Why did you buy it?</FormLabel>
+        <Select
+          placeholder="Select mood/reason"
+          value={selectedReason}
+          onChange={(e) => setSelectedReason(e.target.value)}
+        >
           <option>Hype</option>
           <option>I was bored</option>
           <option>Wanted to play this genre</option>
-        </Select>
-        <Button mt={4} colorScheme="pink" type="submit" onSubmit={handleSubmit}>
+        </Select> */}
+        <Button mt={4} colorScheme="pink" type="submit" onClick={handleSubmit}>
           Submit
         </Button>
       </FormControl>

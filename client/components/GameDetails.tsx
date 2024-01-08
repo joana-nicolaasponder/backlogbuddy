@@ -1,5 +1,4 @@
-import { useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import {
   Button,
@@ -13,12 +12,9 @@ import {
 } from '@chakra-ui/react'
 import { viewGame } from '../apiClient/games'
 
-import AddGame from './AddGame'
-
 export default function GameDetails() {
   const { name } = useParams()
 
-  const [addToBackLogClicked, setAddToBackLogClicked] = useState(false)
   const {
     data: game,
     isLoading,
@@ -48,9 +44,7 @@ export default function GameDetails() {
     screenshots,
   } = game[0]
 
-  // console.log(genres)
-  // console.log(involved_companies)
-
+  
   const formatDate = (timestamp) => {
     const date = new Date(timestamp * 1000) // Convert to milliseconds
     return date.toLocaleDateString('en-US', {
@@ -133,20 +127,14 @@ export default function GameDetails() {
             <Text fontSize="xl" textColor="brand.500" className="game-summary">
               {summary}
             </Text>
-
             <Center>
-              {addToBackLogClicked ? (
-                <AddGame gameName={gameName} platforms={platforms} />
-              ) : (
-                <Button
-                  onClick={() => setAddToBackLogClicked(true)}
-                  marginTop="40px"
-                  marginBottom="40px"
-                >
+              <Link to={`/games/${gameName.toLowerCase()}/add`}>
+                <Button marginTop="40px" marginBottom="40px">
                   Add to Backlog
                 </Button>
-              )}
+              </Link>
             </Center>
+
             <Heading as="h3" size="lg" textColor="brand.600">
               Publishers:{' '}
             </Heading>

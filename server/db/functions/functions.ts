@@ -6,7 +6,7 @@ export async function getBacklogGames(): Promise<BacklogGames[]> {
   return data as BacklogGames[]
 }
 
-export async function addGame(game: GameData) {
+export async function addBacklogGame(game: GameData) {
   const data = await connection('backlog').insert(game).returning('*')
   return data as BacklogGames[]
 }
