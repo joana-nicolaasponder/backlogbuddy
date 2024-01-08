@@ -112,4 +112,5 @@ export interface GameData {
   genre?: string
   mood?: string
   platform?: string
+  image?: string
 }

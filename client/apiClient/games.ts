@@ -33,7 +33,7 @@ export async function addGame(name: string): Promise<Game[]> {
   const formattedName = name.replace(/[^\w\s]/g, '').toLowerCase()
 
   const response = await request.post(`/api/v1/games/${formattedName}/add`)
-  console.log(response)
+  console.log(response.body)
   return response.body
 }
 
