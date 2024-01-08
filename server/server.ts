@@ -5,11 +5,13 @@ import cors, { CorsOptions } from 'cors'
 import debounce from 'lodash/debounce'
 
 import 'dotenv/config'
+import routes from '../server/routes/routes.ts'
 
 const server = express()
 
 server.use(express.json())
 server.use(cors('*' as CorsOptions))
+server.use('/api/v1/routes', routes)
 
 //SEARCH
 const debouncedSearch = debounce(async (searchQuery, res) => {
@@ -45,6 +47,28 @@ server.post('/api/v1/search', (req, res) => {
 // this one works!!
 // SINGLE GAME DETAILS
 server.post('/api/v1/games/:name', async (req, res) => {
+  try {
+    const name = req.params.name
+    // console.log('FROM SERVER', req)
+    // console.log('this is from server', name)
+    const response = await request
+      .post(`https://api.igdb.com/v4/games/`)
+      .query({
+        search: `${name}`,
+        fields: `name, summary, cover.image_id, genres.name, release_dates.human, platforms.name, first_release_date, storyline, platforms.name, involved_companies.company.name, screenshots.image_id`,
+      })
+      .set('Authorization', `Bearer ${process.env.GAME_API_TOKEN}`)
+      .set('Client-ID', `${process.env.GAME_API_KEY}`)
+    // console.log('Response from name server:', response.body)
+
+    res.json(response.body)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Error fetching game details')
+  }
+})
+
+server.post('/api/v1/games/buy/:name', async (req, res) => {
   try {
     const name = req.params.name
     // console.log('FROM SERVER', req)

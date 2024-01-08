@@ -16,7 +16,8 @@
     "build:server": "esbuild --packages=external --platform=node --format=esm --outfile=dist/server.js --bundle server/index.ts",
     "test": "vitest",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
-    "format": "prettier -w '**/*.{js,jsx,ts,tsx}'"
+    "format": "prettier -w '**/*.{js,jsx,ts,tsx}'",
+    "knex": "knex --knexfile ./server/db/knexfile.js"
   },
   "keywords": [
     "frontend"
@@ -37,8 +38,9 @@
     "dotenv": "^16.3.1",
     "express": "^4.17.2",
     "framer-motion": "^10.16.5",
-    "lodash": "^4.17.21"
-    
+    "knex": "^3.1.0",
+    "lodash": "^4.17.21",
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
     "@devacademy/eslint-config": "^1.9.1",
