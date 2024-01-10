@@ -29,8 +29,10 @@ export default function AddGame() {
 
   const {
     name: gameName,
-
+    genres,
     platforms,
+    cover,
+    involved_companies,
   } = game[0]
 
   const handleSubmit = async (e) => {
@@ -39,6 +41,9 @@ export default function AddGame() {
     const response = await addBacklogGame({
       game_title: gameName,
       platform: selectedPlatform,
+      image: cover.image_id,
+      genre: genres,
+      publisher: involved_companies,
     })
     console.log('Game added', response)
   }
