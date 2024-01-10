@@ -53,7 +53,6 @@ router.post('/backlog', async (req, res) => {
   console.log('POST REQUEST BACKLOG')
   console.log(req.body)
   const data = req.body
-  console.log(data)
   const games = await addBacklogGame(data)
   res.status(200).json(games)
 })

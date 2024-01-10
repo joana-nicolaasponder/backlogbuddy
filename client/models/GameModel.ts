@@ -98,7 +98,7 @@ export interface Website {
 export interface BacklogGames {
   id: number
   game_title: string
-  genre: string
+  genre: Genre[]
   platform: string
   publisher: string
   mood: string
@@ -109,9 +109,9 @@ export interface BacklogGames {
 
 export interface GameData {
   game_title: string
-  genre?: Genre[]
+  genre?: string
   mood?: string
   platform?: string
   image?: string
-  publisher?: Company[]
+  publisher?: string
 }

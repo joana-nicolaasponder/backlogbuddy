@@ -35,6 +35,11 @@ export default function AddGame() {
     involved_companies,
   } = game[0]
 
+  const genreString = genres.map((genre) => genre.name).join(', ')
+  const publisherString = involved_companies
+    .map((company) => company.company.name)
+    .join(', ')
+    
   const handleSubmit = async (e) => {
     console.log('CLicked')
     e.preventDefault()
@@ -42,8 +47,8 @@ export default function AddGame() {
       game_title: gameName,
       platform: selectedPlatform,
       image: cover.image_id,
-      genre: genres,
-      publisher: involved_companies,
+      genre: genreString,
+      publisher: publisherString,
     })
     console.log('Game added', response)
   }
