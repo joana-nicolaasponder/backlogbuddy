@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query'
 
 export default function AddGame() {
   const [selectedPlatform, setSelectedPlatform] = useState('')
+  const [selectedReason, setSelectedReason] = useState('')
 
   const { name } = useParams()
 
@@ -39,7 +40,7 @@ export default function AddGame() {
   const publisherString = involved_companies
     .map((company) => company.company.name)
     .join(', ')
-    
+
   const handleSubmit = async (e) => {
     console.log('CLicked')
     e.preventDefault()
@@ -49,6 +50,7 @@ export default function AddGame() {
       image: cover.image_id,
       genre: genreString,
       publisher: publisherString,
+      mood: selectedReason,
     })
     console.log('Game added', response)
   }
@@ -80,7 +82,7 @@ export default function AddGame() {
             </option>
           ))}
         </Select>
-        {/* <FormLabel color="brand.700">Why did you buy it?</FormLabel>
+        <FormLabel color="brand.700">Why did you buy it?</FormLabel>
         <Select
           placeholder="Select mood/reason"
           value={selectedReason}
@@ -89,7 +91,7 @@ export default function AddGame() {
           <option>Hype</option>
           <option>I was bored</option>
           <option>Wanted to play this genre</option>
-        </Select> */}
+        </Select>
         <Button mt={4} colorScheme="pink" type="submit" onClick={handleSubmit}>
           Submit
         </Button>
