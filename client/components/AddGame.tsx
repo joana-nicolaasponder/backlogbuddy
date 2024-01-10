@@ -42,7 +42,7 @@ export default function AddGame() {
     .join(', ')
 
   const handleSubmit = async (e) => {
-    console.log('CLicked')
+    console.log('Clicked')
     e.preventDefault()
     const response = await addBacklogGame({
       game_title: gameName,
@@ -53,6 +53,7 @@ export default function AddGame() {
       mood: selectedReason,
     })
     console.log('Game added', response)
+    window.location.href = '/games/success'
   }
 
   return (
