@@ -4,19 +4,29 @@ import { Games } from '../models/GameModel'
 import { Link } from 'react-router-dom'
 import { FormControl, FormLabel, Heading, Input } from '@chakra-ui/react'
 import { ListItem, UnorderedList } from '@chakra-ui/react'
+import { debounce } from 'lodash'
 
 export default function GameList() {
   const [games, setGames] = useState<Games[]>([])
   const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
+    const debouncedSearch = debounce(async (query) => {
+      try {
+        const data = await searchGames(query)
+        setGames(data)
+      } catch (error) {
+        console.error('Error searching for games')
+      }
+    }, 300)
+
     if (searchQuery) {
-      searchGames(searchQuery)
-        .then((data) => setGames(data))
-        .catch((error) => console.error(error))
+      debouncedSearch(searchQuery)
     } else {
       setGames([])
     }
+
+    return () => debouncedSearch.cancel()
   }, [searchQuery])
 
   const handleSearch = (event) => {

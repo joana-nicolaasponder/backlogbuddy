@@ -2,11 +2,9 @@ import * as Path from 'node:path'
 import express from 'express'
 import request from 'superagent'
 import cors, { CorsOptions } from 'cors'
-import debounce from 'lodash/debounce'
 
 import 'dotenv/config'
 import routes from '../server/routes/routes.ts'
-import { addBacklogGame } from './db/functions/functions.ts'
 
 const server = express()
 
@@ -15,7 +13,9 @@ server.use(cors('*' as CorsOptions))
 server.use('/api/v1/routes', routes)
 
 //SEARCH
-const debouncedSearch = debounce(async (searchQuery, res) => {
+
+server.post('/api/v1/search', async (req, res) => {
+  const searchQuery = req.query.name
   try {
     const response = await request
       .post('https://api.igdb.com/v4/games')
@@ -36,12 +36,6 @@ const debouncedSearch = debounce(async (searchQuery, res) => {
     console.error(error)
     res.status(500).send('Error fetching games')
   }
-}, 30)
-
-server.post('/api/v1/search', (req, res) => {
-  const searchQuery = req.query.name
-
-  debouncedSearch(searchQuery, res)
 })
 
 // SINGLE GAME DETAILS

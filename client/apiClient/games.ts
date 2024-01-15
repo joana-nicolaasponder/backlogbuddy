@@ -7,8 +7,6 @@ export async function searchGames(searchQuery: string): Promise<Games[]> {
     const response = await request
       .post('/api/v1/search')
       .query({ name: searchQuery })
-    // console.log('this is the URL from api:', `/api/v1/search/${searchQuery}`)
-    // console.log('Response from apiclient:', response.body)
     return response.body
   } catch (error) {
     throw new Error('Error searching for games')
