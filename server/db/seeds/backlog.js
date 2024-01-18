@@ -15,7 +15,7 @@ export async function seed(knex) {
       publisher: 'Glumberland, Double Fine Productions',
       status: 'dropped',
       mood: 'bored',
-      image: '/images/Ooblets.png',
+      image: 'co2dfx',
     },
     {
       id: 2,
@@ -26,7 +26,7 @@ export async function seed(knex) {
       publisher: 'Nintendo',
       status: 'finished',
       mood: 'cozy',
-      image: '/images/ACNH.png',
+      image: 'co3wls',
     },
   ])
 }

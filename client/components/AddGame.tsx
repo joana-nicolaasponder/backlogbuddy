@@ -1,12 +1,59 @@
 import { Button, FormControl, FormLabel, Select, Text } from '@chakra-ui/react'
 
 import { useState } from 'react'
+import { addGame, addBacklogGame } from '../apiClient/games'
+import { useParams } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 
-export default function AddGame({ gameName, platforms }) {
+export default function AddGame() {
   const [selectedPlatform, setSelectedPlatform] = useState('')
+  const [selectedReason, setSelectedReason] = useState('')
 
-  const handleSubmit = () => {
-    //add game to database
+  const { name } = useParams()
+
+  const {
+    data: game,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['game', name],
+    queryFn: () => addGame(name as string),
+  })
+
+  if (error) {
+    return <p>There was an error</p>
+  }
+
+  if (!game || isLoading) {
+    return <p>Loading...</p>
+  }
+
+  const {
+    name: gameName,
+    genres,
+    platforms,
+    cover,
+    involved_companies,
+  } = game[0]
+
+  const genreString = genres.map((genre) => genre.name).join(', ')
+  const publisherString = involved_companies
+    .map((company) => company.company.name)
+    .join(', ')
+
+  const handleSubmit = async (e) => {
+    console.log('Clicked')
+    e.preventDefault()
+    const response = await addBacklogGame({
+      game_title: gameName,
+      platform: selectedPlatform,
+      image: cover.image_id,
+      genre: genreString,
+      publisher: publisherString,
+      mood: selectedReason,
+    })
+    console.log('Game added', response)
+    window.location.href = '/games/success'
   }
 
   return (
@@ -37,12 +84,16 @@ export default function AddGame({ gameName, platforms }) {
           ))}
         </Select>
         <FormLabel color="brand.700">Why did you buy it?</FormLabel>
-        <Select placeholder="Select mood/reason">
+        <Select
+          placeholder="Select mood/reason"
+          value={selectedReason}
+          onChange={(e) => setSelectedReason(e.target.value)}
+        >
           <option>Hype</option>
           <option>I was bored</option>
           <option>Wanted to play this genre</option>
         </Select>
-        <Button mt={4} colorScheme="pink" type="submit" onSubmit={handleSubmit}>
+        <Button mt={4} colorScheme="pink" type="submit" onClick={handleSubmit}>
           Submit
         </Button>
       </FormControl>

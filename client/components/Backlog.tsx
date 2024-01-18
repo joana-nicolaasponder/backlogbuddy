@@ -28,7 +28,10 @@ export default function Backlog() {
             <Text>{game.game_title}</Text>
             <Text>{game.genre}</Text>
             <Text>{game.platform}</Text>
-            <Image src={game.image} alt={game.game_title} />
+            <Image
+              src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.image}.jpg`}
+              alt={game.game_title}
+            />
           </ListItem>
         ))}
       </UnorderedList>
