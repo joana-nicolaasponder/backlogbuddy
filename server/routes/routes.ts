@@ -1,7 +1,11 @@
 import express from 'express'
 import request from 'superagent'
 
-import { addBacklogGame, getBacklogGames } from '../db/functions/functions'
+import {
+  addBacklogGame,
+  getBacklogGames,
+  recommendGame,
+} from '../db/functions/functions'
 
 const router = express.Router()
 
@@ -54,6 +58,14 @@ router.post('/backlog', async (req, res) => {
   console.log(req.body)
   const data = req.body
   const games = await addBacklogGame(data)
+  res.status(200).json(games)
+})
+
+router.get(`/games/recommended/:genre`, async (req, res) => {
+  console.log('REC REQUEST BACKLOG ', req.params.genre)
+  const data = req.params.genre
+  const games = await recommendGame(data)
+  console.log('GAMES BACKLOG', games)
   res.status(200).json(games)
 })
 
