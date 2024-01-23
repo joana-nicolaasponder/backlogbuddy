@@ -1,6 +1,6 @@
 import request from 'superagent'
 
-import { Games, Game, BacklogGames, GameData } from '../models/GameModel'
+import { Games, Game, BacklogGames, GameData, Genre } from '../models/GameModel'
 
 export async function searchGames(searchQuery: string): Promise<Games[]> {
   try {
@@ -46,7 +46,7 @@ export async function buyGame(name: string): Promise<Game[]> {
   console.log('chosen game to buy from apiclient:', name)
   const formattedName = name.replace(/[^\w\s]/g, '').toLowerCase()
   const response = await request.post(`/api/v1/games/buy/${formattedName}`)
-  console.log('this is from the api client:', response.body)
+  console.log('this is from the api client buygame:', response.body)
   return response.body
 }
 
@@ -54,4 +54,13 @@ export async function getBacklogGames(): Promise<BacklogGames[]> {
   const data = await request.get('/api/v1/routes/backlog')
   console.log('API', data.body)
   return data.body
+}
+
+export async function recommendGame(genre: string) {
+  console.log('REC REQUEST: ', genre)
+  const response = await await request.get(
+    `/api/v1/routes/games/recommended/${genre}`
+  )
+  console.log('This is from the API REC: ', response.body)
+  return response.body
 }

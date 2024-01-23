@@ -8,12 +8,14 @@ import {
   Center,
 } from '@chakra-ui/react'
 
-import { buyGame } from '../apiClient/games'
+import { buyGame, getBacklogGames } from '../apiClient/games'
 import { Link, useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 
 export default function NewGame() {
   const { name } = useParams()
+  const [selectedGenre, setSelectedGenre] = useState('')
 
   const {
     data: game,
@@ -33,6 +35,14 @@ export default function NewGame() {
   }
 
   const { genres } = game[0]
+
+  // const handleSubmit = async (e) => {
+  //   console.log('Clicked')
+  //   e.preventDefault()
+  //   const response = await getBacklogGames()
+  //   console.log('recommendation', response)
+  //   window.location.href = `/games/recommended/${selectedGenre}`
+  // }
 
   return (
     <>
@@ -57,7 +67,12 @@ export default function NewGame() {
           Because I feel
         </Text>
         <FormLabel color="brand.700">like playing a...</FormLabel>
-        <Select placeholder="Select Genre" marginBottom={2}>
+        <Select
+          placeholder="Select Genre"
+          marginBottom={2}
+          value={selectedGenre}
+          onChange={(e) => setSelectedGenre(e.target.value)}
+        >
           {genres.map((g) => (
             <option key={g.id}>{g.name}</option>
           ))}
@@ -80,8 +95,9 @@ export default function NewGame() {
           <option>Annoyed</option>
         </Select>
         <Center marginTop="50px">
-          <Link to={`/games/recommended`}>
+          <Link to={`/games/recommended/${selectedGenre}`}>
             <Button>THIS ONE... 😅</Button>
+            {/* TODO: Change into handleSubmit. Look at AddGame component for an idea */}
           </Link>
         </Center>
       </FormControl>

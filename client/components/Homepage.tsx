@@ -19,7 +19,6 @@ export default function Homepage() {
           <Link to="/games/search">
             <Button marginRight="20px">Add a game</Button>
           </Link>
-          {/* <Button>Buy a game</Button> */}
         </Center>
         <Center>
           <Link to="/games/buy">
@@ -27,7 +26,6 @@ export default function Homepage() {
               Oh no, I want to buy a game
             </Button>
           </Link>
-          {/* <Button>Buy a game</Button> */}
         </Center>
         <Center>
           <Link to="/games/backlog">
@@ -35,7 +33,6 @@ export default function Homepage() {
               Backlog
             </Button>
           </Link>
-          {/* <Button>Buy a game</Button> */}
         </Center>
       </Container>
     </>

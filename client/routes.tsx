@@ -20,7 +20,7 @@ export default createRoutesFromElements(
     <Route path="games/:name/add" element={<AddGame />} />
     <Route path="games/buy/:name" element={<NewGame />} />
     <Route path="games/backlog" element={<Backlog />} />
-    <Route path="games/recommended" element={<Recommendation />} />
+    <Route path="games/recommended/:genre" element={<Recommendation />} />
     <Route path="games/success" element={<Success />} />
   </Route>
 )
