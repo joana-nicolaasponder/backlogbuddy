@@ -64,3 +64,9 @@ export async function recommendGame(genre: string) {
   console.log('This is from the API REC: ', response.body)
   return response.body
 }
+
+export async function viewBacklogGame(name: string) {
+  console.log('BACKLOG REQ TO VIEW', name)
+  const data = await request.get(`/api/v1/routes/backlog/${name}`)
+  return data.body
+}

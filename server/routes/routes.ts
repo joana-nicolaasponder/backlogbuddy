@@ -5,6 +5,7 @@ import {
   addBacklogGame,
   getBacklogGames,
   recommendGame,
+  viewBacklogGame,
 } from '../db/functions/functions'
 
 const router = express.Router()
@@ -67,6 +68,14 @@ router.get(`/games/recommended/:genre`, async (req, res) => {
   const games = await recommendGame(data)
   console.log('GAMES BACKLOG', games)
   res.status(200).json(games)
+})
+
+router.get(`/backlog/:name`, async (req, res) => {
+  console.log('BACKLOG VIEW', req.params.name)
+  const data = req.params.name
+  const game = await viewBacklogGame(data)
+  console.log('BACKLOG GAME', game)
+  res.status(200).json(game)
 })
 
 export default router

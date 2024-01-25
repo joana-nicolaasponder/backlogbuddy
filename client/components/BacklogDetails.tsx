@@ -2,7 +2,6 @@ import {
   Card,
   CardBody,
   Divider,
-  
   Grid,
   GridItem,
   Heading,
@@ -13,7 +12,7 @@ import {
 import { useQuery } from '@tanstack/react-query'
 
 import { useParams } from 'react-router-dom'
-import { viewGame } from '../apiClient/games'
+import { getBacklogGames, viewBacklogGame, viewGame } from '../apiClient/games'
 
 export default function BacklogDetails() {
   const { name } = useParams()
@@ -23,8 +22,8 @@ export default function BacklogDetails() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ['game', name],
-    queryFn: () => viewGame(name as string),
+    queryKey: ['backlog', name],
+    queryFn: () => viewBacklogGame(name as string),
   })
 
   if (error) {
@@ -35,16 +34,17 @@ export default function BacklogDetails() {
     return <p>Loading...</p>
   }
 
+  console.log('frontend', game)
+
   const {
-    name: gameName,
-    cover,
-    genres,
-    first_release_date,
-    platforms,
-    involved_companies,
-    screenshots,
-    summary,
-    storyline,
+    game_title,
+    image,
+    genre,
+    platform,
+    publisher,
+    mood,
+    status,
+    rating,
   } = game[0]
 
   return (
@@ -57,14 +57,14 @@ export default function BacklogDetails() {
           textAlign="center"
           marginBottom="80px"
         >
-          {gameName}
+          {game_title}
         </Heading>
       </GridItem>
 
       <GridItem colSpan={4} marginLeft="80px">
         <Image
-          src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${cover.image_id}.jpg`}
-          alt={`${gameName} cover`}
+          src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${image}.jpg`}
+          alt={`${game_title} cover`}
         ></Image>
       </GridItem>
 
@@ -79,66 +79,65 @@ export default function BacklogDetails() {
           How long to beat: <Text>infinite time</Text>
         </Heading>
         <Heading marginBottom="1em">
-          Status: <Text color="green">Playing</Text>
+          Status: <Text color="green">{status}</Text>
         </Heading>
       </GridItem>
       <GridItem colSpan={4} marginLeft="80px" marginTop="24px">
         <Heading marginBottom="1em">
-          Mood: <Text>Hype</Text>
+          Mood: <Text>{mood}</Text>
+        </Heading>
+        <Heading marginBottom="1em">
+          Rating: <Text>{rating}</Text>
         </Heading>
         <Heading marginBottom="1em">
           Notes: <Text>This game is so much fun</Text>
         </Heading>
         <Heading marginBottom="1em">
-          Platform I own it on:<Text>Nintendo</Text>
+          Platform I own it on:<Text>{platform}</Text>
         </Heading>
       </GridItem>
       <GridItem colSpan={10}>
         <Divider marginLeft="80px"></Divider>
       </GridItem>
       <GridItem colSpan={10} marginLeft="80px">
+        {/* <Heading
+      marginBottom="1em"
+      as="h3"
+      size="lg"
+      textColor="brand.600"
+      marginTop="60px"
+    >
+      Summary:{' '}
+      <Text fontSize="xl" textColor="brand.500" className="game-summary">
+        {summary}
+      </Text>
+    </Heading> */}
+
         <Heading
+          marginTop="1em"
           marginBottom="1em"
           as="h3"
           size="lg"
           textColor="brand.600"
-          marginTop="60px"
         >
-          Summary:{' '}
-          <Text fontSize="xl" textColor="brand.500" className="game-summary">
-            {summary}
-          </Text>
+          Publishers: <Text>{publisher}</Text>
         </Heading>
-
-        <Heading marginBottom="1em" as="h3" size="lg" textColor="brand.600">
-          Publishers:{' '}
-          {involved_companies.map((item) => (
-            <Text
-              key={item.id}
-              className="game-company"
+        {/* <Heading marginBottom="1em">Screenshots:</Heading> */}
+        {/* <SimpleGrid spacing={4} templateColumns="repeat(4, 1fr)">
+      {screenshots.map((shot) => (
+        <Card maxW="sm" key={shot.id}>
+          <CardBody>
+            <Image
+              className="game-screenshots"
               fontSize="xl"
               textColor="brand.500"
-            >
-              {item.company.name}
-            </Text>
-          ))}
-        </Heading>
-        <Heading marginBottom="1em">Screenshots:</Heading>
-        <SimpleGrid spacing={4} templateColumns="repeat(4, 1fr)">
-          {screenshots.map((shot) => (
-            <Card maxW="sm" key={shot.id}>
-              <CardBody>
-                <Image
-                  className="game-screenshots"
-                  fontSize="xl"
-                  textColor="brand.500"
-                  src={`https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${shot.image_id}.jpg`}
-                  alt={`screenshot`}
-                ></Image>
-              </CardBody>
-            </Card>
-          ))}
-        </SimpleGrid>
+              src={`https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${shot.image_id}.jpg`}
+              alt={`screenshot`}
+            ></Image>
+          </CardBody>
+        </Card>
+      ))}
+    </SimpleGrid> */}
       </GridItem>
     </Grid>
   )
