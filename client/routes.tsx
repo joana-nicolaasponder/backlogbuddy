@@ -10,6 +10,7 @@ import Backlog from './components/Backlog'
 import Recommendation from './components/Recommendation'
 import AddGame from './components/AddGame'
 import Success from './components/Success'
+import BacklogDetails from './components/BacklogDetails'
 
 export default createRoutesFromElements(
   <Route path="/" element={<Layout />}>
@@ -22,5 +23,6 @@ export default createRoutesFromElements(
     <Route path="games/backlog" element={<Backlog />} />
     <Route path="games/recommended/:genre" element={<Recommendation />} />
     <Route path="games/success" element={<Success />} />
+    <Route path="games/backlog/:name" element={<BacklogDetails />} />
   </Route>
 )

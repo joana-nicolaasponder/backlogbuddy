@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { getBacklogGames } from '../apiClient/games'
 import { Text, Image, SimpleGrid, Box, Button } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 
 export default function Backlog() {
   const {
@@ -34,7 +35,9 @@ export default function Backlog() {
             </Text>
             <Text fontSize="xl">{game.genre}</Text>
             <Text fontSize="medium">I own it on: {game.platform}</Text>
-            <Button margin={10}>Edit</Button>
+            <Link to={`/games/backlog/${game.game_title}`}>
+              <Button margin={10}>More Details</Button>
+            </Link>
             <Button>Delete</Button>
           </Box>
         ))}
