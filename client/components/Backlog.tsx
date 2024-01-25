@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { deleteBacklogGame, getBacklogGames } from '../apiClient/games'
-import { Text, Image, SimpleGrid, Box, Button } from '@chakra-ui/react'
+import { Text, Image, Button, Grid, GridItem } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 export default function Backlog() {
@@ -34,28 +34,34 @@ export default function Backlog() {
 
   return (
     <>
-      <SimpleGrid columns={[2, null, 3]} spacing="40px" marginTop={10}>
+      <Grid gridTemplateColumns="repeat(12, 1fr)" margin="80px">
         {games.map((game) => (
-          <Box key={game.id} border="solid" padding="10px" margin="5px">
+          <GridItem
+            colSpan={3}
+            key={game.id}
+            border="solid"
+            padding="10px"
+            margin="5px"
+          >
             <Image
               src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.image}.jpg`}
               alt={game.game_title}
             />
-            <Text fontSize="2xl" fontWeight="bold" color="peachpuff">
+            <Text fontSize="2xl" fontWeight="bold">
               {game.game_title}
             </Text>
             <Text fontSize="xl">{game.genre}</Text>
             <Text fontSize="medium">I own it on: {game.platform}</Text>
+
             <Link to={`/games/backlog/${game.game_title}`}>
               <Button margin={10}>More Details</Button>
             </Link>
-
             <Button onClick={() => handleDelete(game.game_title)}>
               Delete
             </Button>
-          </Box>
+          </GridItem>
         ))}
-      </SimpleGrid>
+      </Grid>
     </>
   )
 }

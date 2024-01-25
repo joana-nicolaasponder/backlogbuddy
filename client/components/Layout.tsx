@@ -11,8 +11,8 @@ export default function Layout() {
         align="center"
         justify="center"
         minH="100vh"
-        color="brand.600"
-        bg="brand.900"
+        color="brand.900"
+        bg="brand.150"
       >
         <Spacer />
         <Center marginBottom={4}>

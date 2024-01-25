@@ -1,18 +1,8 @@
-import {
-  Card,
-  CardBody,
-  Divider,
-  Grid,
-  GridItem,
-  Heading,
-  Image,
-  SimpleGrid,
-  Text,
-} from '@chakra-ui/react'
+import { Divider, Grid, GridItem, Heading, Image, Text } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
 
 import { useParams } from 'react-router-dom'
-import { getBacklogGames, viewBacklogGame, viewGame } from '../apiClient/games'
+import { viewBacklogGame } from '../apiClient/games'
 
 export default function BacklogDetails() {
   const { name } = useParams()
@@ -56,6 +46,9 @@ export default function BacklogDetails() {
           textColor="brand.500"
           textAlign="center"
           marginBottom="80px"
+          marginLeft="80px"
+          marginRight="80px"
+          marginTop="40px"
         >
           {game_title}
         </Heading>
@@ -100,44 +93,9 @@ export default function BacklogDetails() {
         <Divider marginLeft="80px"></Divider>
       </GridItem>
       <GridItem colSpan={10} marginLeft="80px">
-        {/* <Heading
-      marginBottom="1em"
-      as="h3"
-      size="lg"
-      textColor="brand.600"
-      marginTop="60px"
-    >
-      Summary:{' '}
-      <Text fontSize="xl" textColor="brand.500" className="game-summary">
-        {summary}
-      </Text>
-    </Heading> */}
-
-        <Heading
-          marginTop="1em"
-          marginBottom="1em"
-          as="h3"
-          size="lg"
-          textColor="brand.600"
-        >
+        <Heading marginTop="1em" marginBottom="1em" as="h3" size="lg">
           Publishers: <Text>{publisher}</Text>
         </Heading>
-        {/* <Heading marginBottom="1em">Screenshots:</Heading> */}
-        {/* <SimpleGrid spacing={4} templateColumns="repeat(4, 1fr)">
-      {screenshots.map((shot) => (
-        <Card maxW="sm" key={shot.id}>
-          <CardBody>
-            <Image
-              className="game-screenshots"
-              fontSize="xl"
-              textColor="brand.500"
-              src={`https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${shot.image_id}.jpg`}
-              alt={`screenshot`}
-            ></Image>
-          </CardBody>
-        </Card>
-      ))}
-    </SimpleGrid> */}
       </GridItem>
     </Grid>
   )
