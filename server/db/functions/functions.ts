@@ -20,3 +20,7 @@ export async function viewBacklogGame(name: string) {
   const data = await connection('backlog').where('game_title', name)
   return data as BacklogGames[]
 }
+
+export async function deleteGame(name: string) {
+  await connection('backlog').where('game_title', name).del()
+}

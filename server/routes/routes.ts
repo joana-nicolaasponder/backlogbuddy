@@ -3,6 +3,7 @@ import request from 'superagent'
 
 import {
   addBacklogGame,
+  deleteGame,
   getBacklogGames,
   recommendGame,
   viewBacklogGame,
@@ -76,6 +77,14 @@ router.get(`/backlog/:name`, async (req, res) => {
   const game = await viewBacklogGame(data)
   console.log('BACKLOG GAME', game)
   res.status(200).json(game)
+})
+
+router.delete(`/backlog/:name`, async (req, res) => {
+  console.log('DEL REQUEST BACKLOG', req.params.name)
+  const data = req.params.name
+  const games = await deleteGame(data)
+  res.status(200).json(games)
+  console.log('success')
 })
 
 export default router

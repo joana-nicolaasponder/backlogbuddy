@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getBacklogGames } from '../apiClient/games'
+import { deleteBacklogGame, getBacklogGames } from '../apiClient/games'
 import { Text, Image, SimpleGrid, Box, Button } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
@@ -21,6 +21,14 @@ export default function Backlog() {
     return <p>Loading...</p>
   }
 
+  const handleDelete = async (name: string) => {
+    try {
+      await deleteBacklogGame(name)
+    } catch (error) {
+      console.log('error deleting game:', error)
+    }
+  }
+
   return (
     <>
       <SimpleGrid columns={[2, null, 3]} spacing="40px" marginTop={10}>
@@ -38,7 +46,10 @@ export default function Backlog() {
             <Link to={`/games/backlog/${game.game_title}`}>
               <Button margin={10}>More Details</Button>
             </Link>
-            <Button>Delete</Button>
+
+            <Button onClick={() => handleDelete(game.game_title)}>
+              Delete
+            </Button>
           </Box>
         ))}
       </SimpleGrid>

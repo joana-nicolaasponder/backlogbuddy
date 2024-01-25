@@ -70,3 +70,9 @@ export async function viewBacklogGame(name: string) {
   const data = await request.get(`/api/v1/routes/backlog/${name}`)
   return data.body
 }
+
+export async function deleteBacklogGame(name: string) {
+  console.log('REQ to delete', name)
+  const response = await request.del(`/api/v1/routes/backlog/${name}`)
+  return response.body
+}
