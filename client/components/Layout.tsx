@@ -1,9 +1,11 @@
 import { Outlet } from 'react-router-dom'
 import { Center, Flex, Spacer } from '@chakra-ui/react'
+import Nav from './Nav'
 
 export default function Layout() {
   return (
     <>
+      <Nav />
       <Flex
         direction="column"
         align="center"
