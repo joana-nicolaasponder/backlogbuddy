@@ -1,9 +1,11 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { deleteBacklogGame, getBacklogGames } from '../apiClient/games'
 import { Text, Image, SimpleGrid, Box, Button } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 export default function Backlog() {
+  const queryClient = useQueryClient()
+
   const {
     data: games,
     isLoading,
@@ -24,6 +26,7 @@ export default function Backlog() {
   const handleDelete = async (name: string) => {
     try {
       await deleteBacklogGame(name)
+      queryClient.invalidateQueries('backlog')
     } catch (error) {
       console.log('error deleting game:', error)
     }
