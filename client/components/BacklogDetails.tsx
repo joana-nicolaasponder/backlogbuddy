@@ -1,11 +1,28 @@
-import { Divider, Grid, GridItem, Heading, Image, Text } from '@chakra-ui/react'
+import {
+  Divider,
+  Grid,
+  GridItem,
+  Heading,
+  Image,
+  Text,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Textarea,
+  Button,
+  Flex,
+} from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
-
 import { useParams } from 'react-router-dom'
+import { useState } from 'react'
 import { viewBacklogGame } from '../apiClient/games'
 
 export default function BacklogDetails() {
   const { name } = useParams()
+  const [editableStatus, setEditableStatus] = useState('')
+  const [editableNotes, setEditableNotes] = useState('')
+  const [editableMood, setEditableMood] = useState('')
 
   const {
     data: game,
@@ -24,8 +41,6 @@ export default function BacklogDetails() {
     return <p>Loading...</p>
   }
 
-  console.log('frontend', game)
-
   const {
     game_title,
     image,
@@ -37,66 +52,77 @@ export default function BacklogDetails() {
     rating,
   } = game[0]
 
+  // Update this function to handle saving the changes
+  const handleSaveChanges = () => {
+    // Call an API to update the game details or update state
+    console.log('Save changes', {
+      status: editableStatus,
+      notes: editableNotes,
+      mood: editableMood,
+    })
+  }
+
   return (
-    <Grid gridTemplateColumns="repeat(12, 1fr)">
+    <Grid templateColumns="repeat(12, 1fr)" gap={6}>
       <GridItem colSpan={12}>
-        <Heading
-          as="h1"
-          size="4xl"
-          textColor="brand.500"
-          textAlign="center"
-          marginBottom="80px"
-          marginLeft="80px"
-          marginRight="80px"
-          marginTop="40px"
-        >
+        <Heading as="h1" size="4xl" textAlign="center" my="40px">
           {game_title}
         </Heading>
       </GridItem>
 
-      <GridItem colSpan={4} marginLeft="80px">
+      <GridItem colSpan={[12, 12, 4]} p={5}>
         <Image
           src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${image}.jpg`}
           alt={`${game_title} cover`}
-        ></Image>
+        />
       </GridItem>
 
-      <GridItem colSpan={6} marginLeft="80px">
-        <Heading marginBottom="1em">
-          Added on: <Text>12/02/2024</Text>
-        </Heading>
-        <Heading marginBottom="1em">
-          Playtime: <Text>200hrs</Text>
-        </Heading>
-        <Heading marginBottom="1em">
-          How long to beat: <Text>infinite time</Text>
-        </Heading>
-        <Heading marginBottom="1em">
-          Status: <Text color="green">{status}</Text>
-        </Heading>
+      <GridItem colSpan={[12, 12, 8]} p={5}>
+        <FormControl mb={4}>
+          <FormLabel>Status:</FormLabel>
+          <Select
+            placeholder="Select status"
+            onChange={(e) => setEditableStatus(e.target.value)}
+            defaultValue={status}
+          >
+            {/* Replace with actual status options */}
+            <option value="Planning">Planning</option>
+            <option value="Playing">Playing</option>
+            <option value="Completed">Completed</option>
+          </Select>
+        </FormControl>
+        <FormControl mb={4}>
+          <FormLabel>Notes:</FormLabel>
+          <Textarea
+            placeholder="Your notes"
+            onChange={(e) => setEditableNotes(e.target.value)}
+            defaultValue="This game is so much fun"
+          />
+        </FormControl>
+        <FormControl mb={4}>
+          <FormLabel>Mood:</FormLabel>
+          <Flex>
+            <Select
+              placeholder="Select mood"
+              onChange={(e) => setEditableMood(e.target.value)}
+              defaultValue={mood}
+            >
+              {/* Replace with actual mood options */}
+              <option value="Excited">Excited</option>
+              <option value="Relaxed">Relaxed</option>
+            </Select>
+            <Input
+              placeholder="Custom mood"
+              ml={2}
+              onChange={(e) => setEditableMood(e.target.value)}
+            />
+          </Flex>
+        </FormControl>
+        <Button colorScheme="blue" onClick={handleSaveChanges}>
+          Save Changes
+        </Button>
       </GridItem>
-      <GridItem colSpan={4} marginLeft="80px" marginTop="24px">
-        <Heading marginBottom="1em">
-          Mood: <Text>{mood}</Text>
-        </Heading>
-        <Heading marginBottom="1em">
-          Rating: <Text>{rating}</Text>
-        </Heading>
-        <Heading marginBottom="1em">
-          Notes: <Text>This game is so much fun</Text>
-        </Heading>
-        <Heading marginBottom="1em">
-          Platform I own it on:<Text>{platform}</Text>
-        </Heading>
-      </GridItem>
-      <GridItem colSpan={10}>
-        <Divider marginLeft="80px"></Divider>
-      </GridItem>
-      <GridItem colSpan={10} marginLeft="80px">
-        <Heading marginTop="1em" marginBottom="1em" as="h3" size="lg">
-          Publishers: <Text>{publisher}</Text>
-        </Heading>
-      </GridItem>
+      {/* ... other GridItem components for displaying the rest of the game details ... */}
     </Grid>
   )
 }

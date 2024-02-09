@@ -1,6 +1,16 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { deleteBacklogGame, getBacklogGames } from '../apiClient/games'
-import { Text, Image, Button, Grid, GridItem } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Grid,
+  GridItem,
+  Image,
+  Text,
+  Heading,
+  Flex,
+  Spacer,
+} from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 export default function Backlog() {
@@ -33,35 +43,76 @@ export default function Backlog() {
   }
 
   return (
-    <>
-      <Grid gridTemplateColumns="repeat(12, 1fr)" margin="80px">
+    <Box m="5">
+      <Flex mb="5">
+        <Heading as="h1" size="xl" letterSpacing={'tighter'}>
+          Joana's Backlog
+        </Heading>
+        <Spacer />
+        <Button colorScheme="teal" mr="4">
+          ADD
+        </Button>
+        <Button colorScheme="teal">FILTER</Button>
+      </Flex>
+      <Grid
+        templateColumns={{
+          base: 'repeat(2, 1fr)',
+          md: 'repeat(4, 1fr)',
+        }}
+        gap={6}
+      >
         {games.map((game) => (
           <GridItem
-            colSpan={3}
             key={game.id}
-            border="solid"
-            padding="10px"
-            margin="5px"
+            borderWidth="1px"
+            borderRadius="lg"
+            overflow="hidden"
           >
             <Image
               src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.image}.jpg`}
               alt={game.game_title}
+              width="100%"
+              height="auto"
             />
-            <Text fontSize="2xl" fontWeight="bold">
-              {game.game_title}
-            </Text>
-            <Text fontSize="xl">{game.genre}</Text>
-            <Text fontSize="medium">I own it on: {game.platform}</Text>
-
-            <Link to={`/games/backlog/${game.game_title}`}>
-              <Button margin={10}>More Details</Button>
-            </Link>
-            <Button onClick={() => handleDelete(game.game_title)}>
-              Delete
-            </Button>
+            <Box p="4">
+              <Box display="flex" alignItems="baseline">
+                <Text
+                  fontWeight="bold"
+                  letterSpacing="wide"
+                  fontSize="md"
+                  isTruncated
+                >
+                  {game.game_title}
+                </Text>
+                <Spacer />
+                <Button size="xs" onClick={() => handleDelete(game.game_title)}>
+                  X
+                </Button>
+              </Box>
+              <Text
+                mt="1"
+                fontSize="sm"
+                fontWeight="semibold"
+                lineHeight="tight"
+                isTruncated
+              >
+                {game.genre}
+              </Text>
+              <Text mt="2" fontSize="sm">
+                I own it on: {game.platform}
+              </Text>
+              <Flex mt="3" justifyContent="space-between">
+                <Link to={`/games/backlog/${game.game_title}`}>
+                  <Button size="sm">More Details</Button>
+                </Link>
+                <Button size="sm" onClick={() => handleDelete(game.game_title)}>
+                  Delete
+                </Button>
+              </Flex>
+            </Box>
           </GridItem>
         ))}
       </Grid>
-    </>
+    </Box>
   )
 }

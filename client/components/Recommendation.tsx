@@ -1,4 +1,4 @@
-import { Box, Heading, Image, Text } from '@chakra-ui/react'
+import { Box, Grid, Heading, Image, Text } from '@chakra-ui/react'
 import { recommendGame } from '../apiClient/games'
 import { useQuery } from '@tanstack/react-query'
 
@@ -30,16 +30,18 @@ export default function Recommendation() {
   return (
     <>
       <Heading>{`Recommended ${genre} Games`}</Heading>
-      {game.map((g) => (
-        <Box key={g.id} borderWidth="1px" borderRadius="lg" p="4" my="2">
-          <Text>{g.game_title}</Text>
-          <Text>{g.platform}</Text>
-          <Image
-            src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${g.image}.jpg`}
-            alt={g.game_title}
-          />
-        </Box>
-      ))}
+      <Grid gridTemplateColumns="repeat(12, 1fr)">
+        {game.map((g) => (
+          <Box key={g.id} borderWidth="1px" borderRadius="lg" p="4" my="2">
+            <Text>{g.game_title}</Text>
+            <Text>{g.platform}</Text>
+            <Image
+              src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${g.image}.jpg`}
+              alt={g.game_title}
+            />
+          </Box>
+        ))}
+      </Grid>
     </>
   )
 }
