@@ -85,9 +85,7 @@ export default function Backlog() {
                   {game.game_title}
                 </Text>
                 <Spacer />
-                <Button size="xs" onClick={() => handleDelete(game.game_title)}>
-                  X
-                </Button>
+                
               </Box>
               <Text
                 mt="1"

@@ -1,128 +1,129 @@
 import {
-  Divider,
-  Grid,
-  GridItem,
+  Box,
+  Center,
+  Container,
   Heading,
   Image,
+  SimpleGrid,
+  Stack,
   Text,
-  FormControl,
-  FormLabel,
-  Input,
-  Select,
-  Textarea,
-  Button,
-  Flex,
+  VStack,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
-import { useState } from 'react'
-import { viewBacklogGame } from '../apiClient/games'
+import { viewGame } from '../apiClient/games'
 
 export default function BacklogDetails() {
   const { name } = useParams()
-  const [editableStatus, setEditableStatus] = useState('')
-  const [editableNotes, setEditableNotes] = useState('')
-  const [editableMood, setEditableMood] = useState('')
 
   const {
     data: game,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ['backlog', name],
-    queryFn: () => viewBacklogGame(name as string),
+    queryKey: ['game', name],
+    queryFn: () => viewGame(name as string),
   })
 
   if (error) {
-    return <p>There was an error trying to get the game details</p>
+    return <Center>Error fetching game details. Please try again later.</Center>
   }
 
-  if (!game || isLoading) {
-    return <p>Loading...</p>
+  if (isLoading || !game) {
+    return <Center>Loading game details...</Center>
   }
 
   const {
-    game_title,
-    image,
-    genre,
-    platform,
-    publisher,
-    mood,
-    status,
-    rating,
+    name: gameName,
+    cover,
+    genres,
+    first_release_date,
+    platforms,
+    involved_companies,
+    screenshots,
+    summary,
+    storyline,
   } = game[0]
 
-  // Update this function to handle saving the changes
-  const handleSaveChanges = () => {
-    // Call an API to update the game details or update state
-    console.log('Save changes', {
-      status: editableStatus,
-      notes: editableNotes,
-      mood: editableMood,
-    })
-  }
-
   return (
-    <Grid templateColumns="repeat(12, 1fr)" gap={6}>
-      <GridItem colSpan={12}>
-        <Heading as="h1" size="4xl" textAlign="center" my="40px">
-          {game_title}
+    <Container maxW="container.xl">
+      <VStack spacing={8}>
+        <Heading
+          marginTop="20px"
+          as="h1"
+          size="2xl"
+          color={useColorModeValue('brand.500', 'brand.200')}
+          textAlign="center"
+        >
+          {gameName}
         </Heading>
-      </GridItem>
 
-      <GridItem colSpan={[12, 12, 4]} p={5}>
-        <Image
-          src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${image}.jpg`}
-          alt={`${game_title} cover`}
-        />
-      </GridItem>
-
-      <GridItem colSpan={[12, 12, 8]} p={5}>
-        <FormControl mb={4}>
-          <FormLabel>Status:</FormLabel>
-          <Select
-            placeholder="Select status"
-            onChange={(e) => setEditableStatus(e.target.value)}
-            defaultValue={status}
-          >
-            {/* Replace with actual status options */}
-            <option value="Planning">Planning</option>
-            <option value="Playing">Playing</option>
-            <option value="Completed">Completed</option>
-          </Select>
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>Notes:</FormLabel>
-          <Textarea
-            placeholder="Your notes"
-            onChange={(e) => setEditableNotes(e.target.value)}
-            defaultValue="This game is so much fun"
-          />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>Mood:</FormLabel>
-          <Flex>
-            <Select
-              placeholder="Select mood"
-              onChange={(e) => setEditableMood(e.target.value)}
-              defaultValue={mood}
-            >
-              {/* Replace with actual mood options */}
-              <option value="Excited">Excited</option>
-              <option value="Relaxed">Relaxed</option>
-            </Select>
-            <Input
-              placeholder="Custom mood"
-              ml={2}
-              onChange={(e) => setEditableMood(e.target.value)}
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+          <Box>
+            <Image
+              boxSize="500px"
+              objectFit="contain"
+              src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${cover.image_id}.jpg`}
+              alt={`${gameName} cover`}
+              borderRadius="lg"
             />
-          </Flex>
-        </FormControl>
-        <Button colorScheme="blue" onClick={handleSaveChanges}>
-          Save Changes
-        </Button>
-      </GridItem>
-      {/* ... other GridItem components for displaying the rest of the game details ... */}
-    </Grid>
+          </Box>
+
+          <Stack spacing={4}>
+            <Text fontSize="lg">Added on: 12/02/2024</Text>
+            <Text fontSize="lg">Playtime: 200hrs</Text>
+            <Text fontSize="lg">How long to beat: infinite time</Text>
+            <Text fontSize="lg" color="green.500">
+              Status: Playing
+            </Text>
+            <Text fontSize="lg">Mood: Hype</Text>
+            <Text fontSize="lg">Notes: This game is so much fun</Text>
+            <Text fontSize="lg">Platform I own it on: Nintendo</Text>
+          </Stack>
+        </SimpleGrid>
+
+        <Box w="full">
+          <Heading
+            as="h3"
+            size="lg"
+            color={useColorModeValue('brand.600', 'brand.300')}
+            mb={4}
+          >
+            Summary
+          </Heading>
+          <Text fontSize="md">{summary}</Text>
+
+          <Heading
+            as="h3"
+            size="lg"
+            color={useColorModeValue('brand.600', 'brand.300')}
+            mt={6}
+            mb={4}
+          >
+            Publishers
+          </Heading>
+          {involved_companies.map((item) => (
+            <Text key={item.id} fontSize="md">
+              {item.company.name}
+            </Text>
+          ))}
+
+          <Heading as="h3" size="lg" mt={6} mb={4}>
+            Screenshots
+          </Heading>
+          <SimpleGrid columns={{ base: 2, md: 4 }} spacing={4}>
+            {screenshots.map((shot) => (
+              <Image
+                key={shot.id}
+                src={`https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${shot.image_id}.jpg`}
+                alt="screenshot"
+                borderRadius="lg"
+              />
+            ))}
+          </SimpleGrid>
+        </Box>
+      </VStack>
+    </Container>
   )
 }

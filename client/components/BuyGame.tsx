@@ -43,7 +43,7 @@ export default function BuyGame() {
 
   return (
     <>
-      <Heading as="h1" size="4xl" color="brand.500">
+      <Heading as="h2" size="lg" color="brand.500" marginBottom="4">
         What game are you considering?
       </Heading>
 

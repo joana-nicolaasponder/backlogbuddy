@@ -6,6 +6,7 @@ import {
   FormLabel,
   Button,
   Center,
+  Image,
 } from '@chakra-ui/react'
 
 import { buyGame, getBacklogGames } from '../apiClient/games'
@@ -36,6 +37,8 @@ export default function NewGame() {
 
   const { genres } = game[0]
 
+  const { cover } = game[0]
+
   // const handleSubmit = async (e) => {
   //   console.log('Clicked')
   //   e.preventDefault()
@@ -46,11 +49,18 @@ export default function NewGame() {
 
   return (
     <>
+      <Image
+        borderRadius="5px"
+        margin="auto 0"
+        objectFit="cover"
+        src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${cover.image_id}.jpg`}
+        alt={name}
+      ></Image>
       <Heading as="h1" size="4xl" color="brand.500">
         WAIT!
       </Heading>
       <Text fontSize="2xl" color="brand.500">
-        Before you buy a game...{' '}
+        Before you buy this game...{' '}
       </Text>
       <Text fontSize="2xl" color="brand.600">
         Why do you want to buy this game?

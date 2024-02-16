@@ -44,7 +44,6 @@ export default function GameDetails() {
     screenshots,
   } = game[0]
 
-  
   const formatDate = (timestamp) => {
     const date = new Date(timestamp * 1000) // Convert to milliseconds
     return date.toLocaleDateString('en-US', {
@@ -58,8 +57,9 @@ export default function GameDetails() {
     <Grid gridTemplateColumns="repeat(4, 1fr)">
       <GridItem colSpan={4}>
         <Heading
+          marginTop="100px"
           as="h1"
-          size="4xl"
+          size="xl"
           textColor="brand.500"
           textAlign="center"
           marginBottom="80px"
@@ -70,88 +70,84 @@ export default function GameDetails() {
 
       <GridItem colSpan={4}>
         <Grid gridTemplateColumns="repeat(4, 1fr)" gap={6}>
-          <GridItem colSpan={2} marginLeft="500px">
+          <GridItem colSpan={2}>
             <Center>
               <Image
-                borderRadius="5px"
-                margin="auto 0"
+                boxSize="auto"
                 objectFit="cover"
-                boxSize={['300px', '300px']}
                 src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${cover.image_id}.jpg`}
                 alt={`${gameName} cover`}
               />
             </Center>
           </GridItem>
           <GridItem colSpan={1}>
-            <Heading as="h3" size="lg" textColor="brand.600">
+            <Heading as="h3" size="m" textColor="brand.600" marginTop="25px">
               Released on:
             </Heading>
-            <Text fontSize="xl" textColor="brand.500" className="game-release">
+            <Text fontSize="sm" textColor="brand.500" className="game-release">
               {formatDate(first_release_date)}
             </Text>
-            <Heading as="h3" size="lg" textColor="brand.600">
+            <Heading as="h3" size="m" textColor="brand.600" marginTop="10px">
               Genres:{' '}
             </Heading>
             {genres.map((genre) => (
               <Text
                 key={genre.id}
                 className="game-genre"
-                fontSize="xl"
+                fontSize="sm"
                 textColor="brand.500"
               >
                 {genre.name}
               </Text>
             ))}
-            <Heading as="h3" size="lg" textColor="brand.600">
+            <Heading as="h3" size="m" textColor="brand.600" marginTop="10px">
               Platforms:{' '}
             </Heading>
             {platforms.map((platform) => (
               <Text
                 key={platform.id}
                 className="game-genre"
-                fontSize="xl"
+                fontSize="sm"
                 textColor="brand.500"
               >
                 {platform.name}
               </Text>
             ))}
-          </GridItem>
-        </Grid>
-
-        <Grid gridTemplateColumns="repeat(3, 1fr)">
-          <GridItem colSpan={1}></GridItem>
-          <GridItem colSpan={1}>
-            <Heading as="h3" size="lg" textColor="brand.600" marginTop="60px">
+            <Heading as="h3" size="m" textColor="brand.600" marginTop="10px">
               Summary:
             </Heading>
-            <Text fontSize="xl" textColor="brand.500" className="game-summary">
+            <Text fontSize="sm" textColor="brand.500" className="game-summary">
               {summary}
             </Text>
-            <Center>
-              <Link to={`/games/${gameName.toLowerCase()}/add`}>
-                <Button marginTop="40px" marginBottom="40px">
-                  Add to Backlog
-                </Button>
-              </Link>
-            </Center>
-
-            <Heading as="h3" size="lg" textColor="brand.600">
+            <Heading as="h3" size="m" textColor="brand.600" marginTop="10px">
               Publishers:{' '}
             </Heading>
             {involved_companies.map((item) => (
               <Text
                 key={item.id}
                 className="game-company"
-                fontSize="xl"
+                fontSize="sm"
                 textColor="brand.500"
               >
                 {item.company.name}
               </Text>
             ))}
+          </GridItem>
+        </Grid>
+        <Center>
+          <Link to={`/games/${gameName.toLowerCase()}/add`}>
+            <Button marginTop="60px" marginBottom="60px">
+              Add to Backlog
+            </Button>
+          </Link>
+        </Center>
 
+        <Grid gridTemplateColumns="repeat(3, 1fr)">
+          {/* <GridItem colSpan={1}></GridItem> */}
+          <GridItem colSpan={3} marginLeft="60px" marginRight="60px">
             <Heading
               as="h3"
-              size="lg"
+              size="m"
               textColor="brand.500"
               marginTop="40px"
               marginBottom="20px"

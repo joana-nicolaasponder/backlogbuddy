@@ -36,15 +36,17 @@ export default function GameList() {
   return (
     <>
       <Heading as="h2" size="lg" marginBottom="4">
-        🎮 Find a game 🎮
+        🎮 Find a game to add to your backlog 🎮
       </Heading>
+      
       <FormControl marginBottom="6">
-        <FormLabel>Search games</FormLabel>
+        <FormLabel></FormLabel>
         <Input
           type="text"
           value={searchQuery}
           onChange={handleSearch}
           placeholder="Search for a game"
+          width="100%"
         />
       </FormControl>
 
